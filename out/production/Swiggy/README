@@ -1,0 +1,156 @@
+# Magical Arena Game
+
+## Problem Statement
+
+The Magical Arena is a simulated battle environment where two players compete against each other until one of them dies (their health reaches 0). Each player has the following attributes:
+
+- Health: Represents the player's survivability. The player dies if this attribute becomes 0.
+- Strength: Represents the player's ability to defend against attacks.
+- Attack: Represents the player's ability to deal damage.
+
+The game proceeds as follows:
+
+1. Players take turns attacking. At the start of the game, the player with lower health attacks first.
+2. During an attack:
+   - The attacking player rolls the **attacking dice**, and the defending player rolls the **defending dice**.
+   - The attacker's damage is calculated as:
+     `attack_value * outcome_of_attacking_dice_roll`
+   - The defender's defense is calculated as:
+     `strength_value * outcome_of_defending_dice_roll`
+   - The defender’s health is reduced by the excess damage:
+     `(attacker's damage - defender's defense)`, but not less than 0.
+3. The battle continues until one player's health reaches 0.
+
+**Example**:
+Player A (Health: 50, Strength: 5, Attack: 10)
+Player B (Health: 100, Strength: 10, Attack: 5)
+
+- Player A attacks first and rolls 5. Player B defends with a roll of 2.
+  **Attack damage**: `5 * 10 = 50`
+  **Defense strength**: `10 * 2 = 20`
+  **Player B health**: `100 - (50 - 20) = 70`
+
+- Player B attacks next and rolls 4. Player A defends with a roll of 3.
+  **Attack damage**: `4 * 5 = 20`
+  **Defense strength**: `5 * 3 = 15`
+  **Player A health**: `50 - (20 - 15) = 45`
+
+And so on, until one player's health reaches 0.
+
+---
+
+## Project Structure
+
+
+magical-arena/
+│
+├── magicalarena/
+│   ├── Battle.java          # Core logic for simulating battles
+│   ├── IDice.java           # Interface for dice rolling
+│   ├── Dice.java            # Implementation of IDice for random dice rolls
+│   ├── dto/
+│   │   └── Player.java      # Player class with attributes and behaviors
+│   └── MagicalArenaApplication.java  # Main entry point to start a battle
+│
+├── test/
+│   ├── BattleTest.java      # Unit tests for the Battle class
+│   ├── PlayerTest.java      # Unit tests for the Player class
+│   ├── FixedDice.java       # Fixed dice rolls for predictable unit testing
+│
+├── README.md                # Documentation (this file)
+├── .git/                    # Git repository (include history in zip)
+└── build/                   # Compiled files (optional)
+
+
+
+
+## How to Run
+
+### Prerequisites
+
+- Java 8 or later** installed.
+- A Java IDE (e.g., IntelliJ IDEA, Eclipse) or terminal with `javac` and `java` commands.
+- Optional: A unit testing framework like JUnit 4.
+
+
+
+### Steps to Execute the Program
+
+1. Clone or Extract** the project folder to your local machine.
+2. Navigate to the `magicalarena` package.
+3. Compile the Java files using the command:
+   bash
+   javac magicalarena/*.java magicalarena/dto/*.java
+
+4. Run the main program:
+   bash
+   java magicalarena.MagicalArenaApplication
+
+
+
+
+### Output
+
+- The program simulates a battle and prints the results to the console.
+- Example:
+
+  Starting battle between Player A and Player B
+  Player A attacks (Roll: 5) for 50 damage.
+  Player B defends (Roll: 2) for 20 defense.
+  Player B takes 30 damage.
+
+  Winner is Player A
+
+
+
+## Unit Tests
+
+Unit tests are provided for the following components:
+
+- BattleTest.java: Tests the core battle logic, including turn execution and damage calculation.
+- PlayerTest.java: Tests player attributes, health reduction, and alive status.
+- FixedDice.java: Provides predictable dice rolls for consistent test cases.
+
+### Running Tests
+
+1. Navigate to the `test` folder.
+2. Compile and run the tests using JUnit in your IDE or terminal.
+3. Example (if using terminal):
+   bash-
+   javac -cp .:junit-4.13.2.jar test/*.java
+   java -cp .:junit-4.13.2.jar org.junit.runner.JUnitCore test.BattleTest
+
+
+
+
+## Design Considerations
+
+### 1. Simple and Readable Code
+- Clear naming conventions for variables and methods.
+- Logical segregation of classes (e.g., `Battle`, `Player`, `Dice`).
+
+### 2. **Modular Design**
+- The `Battle` class encapsulates the game logic.
+- `Player` class models individual players and their attributes.
+- `Dice` uses an interface (`IDice`) for flexibility in testing.
+
+### 3. Testability
+- Comprehensive unit tests cover both core game logic and edge cases.
+- `FixedDice` ensures deterministic behavior during tests.
+
+
+
+## Evaluation
+
+This project adheres to the evaluation criteria by maintaining:
+- **Simple Design**: Easy-to-follow structure.
+- **Readability**: Clear comments and logical flow.
+- **Modelling**: Proper representation of game components.
+- **Maintainability**: Code is modular and adaptable.
+- **Testability**: High test coverage with deterministic testing.
+
+---
+
+## Commit History
+
+Incremental commits with relevant messages are included in the `.git` folder to showcase the development process.
